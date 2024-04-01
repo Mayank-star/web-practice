@@ -3,7 +3,8 @@ import { useForm } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
 const YoutubeForm = () => {
   const form = useForm();
-  const { register, handleSubmit ,control } = form;
+  const { register, handleSubmit ,control ,formState } = form;
+  const{errors}=formState
   const onSubmit = () => {
     console.log("Form is submitted");
   };
@@ -28,6 +29,7 @@ const YoutubeForm = () => {
          
           className="border-2 border-black pl-1"
         />
+        <p className="text-red-600">{errors.username?.message}</p>
 
         <label htmlFor="email">Email:</label>
         <input
@@ -42,6 +44,7 @@ const YoutubeForm = () => {
           })}
           className="border-2 border-black pl-1"
         />
+         <p className="text-red-600">{errors.email?.message}</p>
 
         <label htmlFor="channel">Channel:</label>
         <input
@@ -53,6 +56,7 @@ const YoutubeForm = () => {
           })}
           className="border-2 border-black pl-1"
         />
+         <p className="text-red-600">{errors.channel?.message}</p>
 
         <button className="border-2 border-black mb-3 px-2 py-1 rounded-xl bg-blue-200">
           Submit
