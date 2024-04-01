@@ -1,6 +1,8 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
+// step-1
+import {useFieldArray} from 'react-hook-form'
 const YoutubeForm = () => {
   const form = useForm({
     defaultValues: async () => {
@@ -17,11 +19,20 @@ const YoutubeForm = () => {
           facebook: "",
         },
         phoneNumber: ["", ""],
+        // step-2
+        phNumber:[{number:''}]
+
       };
     },
   });
   const { register, handleSubmit, control, formState } = form;
   const { errors } = formState;
+//   step-3
+  const{fields,append,remove}=useFieldArray({
+    name:'phNumber',
+    control,
+
+  })
   const onSubmit = (data) => {
     console.log("Form is submitted", data);
   };
@@ -139,6 +150,26 @@ const YoutubeForm = () => {
             className="border-2 border-black pl-1"
           />
           <p>{errors.secondary?.message}</p>
+        </div>
+
+        <div>
+             {/* step-4 */}
+            <label htmlFor="phNumber">List of phone Numbers:</label><br/>
+            <div>
+                {
+                    fields.map((field,index)=>{
+                        return(
+                            <div key={field.id} >
+                            <input id='phNumber' type="number" {...register(`phNumber.${index}.number`)} className="border-2 border-black pl-1"/>{" "}
+                            {
+                                index>0 && <button type="button" onClick={()=>remove(index)}  className="border-2 border-red-400 mb-3 px-2 py-1 rounded-xl bg-blue-200">remove</button>
+                            }
+                            </div>
+                        )
+                    })
+                }
+            </div><br/>
+            <button type="button" onClick={()=>append({number:''})}  className="border-2 border-green-950 mb-3 px-2 py-1 rounded-xl bg-blue-200">Add phone Number</button>
         </div>
 
         <button className="border-2 border-black mb-3 px-2 py-1 rounded-xl bg-blue-200">
