@@ -10,6 +10,10 @@ const YoutubeForm = () => {
             username:data.username,
             email:data.email,
             channel:'knocknok',
+            social:{
+                twitter:'',
+                facebook:'',
+            }
         }
     }
   });
@@ -24,7 +28,8 @@ const YoutubeForm = () => {
       <form  noValidate
         onSubmit={handleSubmit(onSubmit)}
         className="border-2  border-black rounded-md flex flex-col justify-evenly gap-2 py-1 items-start w-1/2 px-2 bg-gray-300 "
-      >
+      >  
+         <div>
         <label htmlFor="username">Username:</label>
         <input
           type="text"
@@ -40,7 +45,9 @@ const YoutubeForm = () => {
           className="border-2 border-black pl-1"
         />
         <p className="text-red-600">{errors.username?.message}</p>
+        </div>
 
+        <div>
         <label htmlFor="email">Email:</label>
         <input
           type="email"
@@ -55,7 +62,9 @@ const YoutubeForm = () => {
           className="border-2 border-black pl-1"
         />
          <p className="text-red-600">{errors.email?.message}</p>
+         </div>
 
+         <div>
         <label htmlFor="channel">Channel:</label>
         <input
           type="text"
@@ -67,7 +76,35 @@ const YoutubeForm = () => {
           className="border-2 border-black pl-1"
         />
          <p className="text-red-600">{errors.channel?.message}</p>
+         </div>
 
+         <div>
+         <label htmlFor="twitter">Twiiter Id:</label>
+        <input
+          type="text"
+          name="twitter"
+          id="twitter"
+          {...register("social.twitter",{
+            required:'twitter id is required'
+          })}
+          className="border-2 border-black pl-1"
+        />
+         <p className="text-red-600">{errors.channel?.message}</p>
+         </div>
+
+         <div>
+         <label htmlFor="facebook">Facebook Id:</label>
+        <input
+          type="text"
+          name="facebook"
+          id="facebook"
+          {...register("social.facebook",{
+            required:'facebook id is required'
+          })}
+          className="border-2 border-black pl-1"
+        />
+         <p className="text-red-600">{errors.channel?.message}</p>
+         </div>
         <button className="border-2 border-black mb-3 px-2 py-1 rounded-xl bg-blue-200">
           Submit
         </button>
