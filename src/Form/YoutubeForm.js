@@ -2,16 +2,26 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
 const YoutubeForm = () => {
-  const form = useForm();
+  const form = useForm({
+    defaultValues:async()=>{
+        const response = await fetch('https://jsonplaceholder.typicode.com/users/3')
+        const data = await response.json();
+        return {
+            username:data.username,
+            email:data.email,
+            channel:'knocknok',
+        }
+    }
+  });
   const { register, handleSubmit ,control ,formState } = form;
   const{errors}=formState
-  const onSubmit = () => {
-    console.log("Form is submitted");
+  const onSubmit = (data) => {
+    console.log("Form is submitted",data);
   };
 
   return (
     <div>
-      <form noValidate
+      <form  noValidate
         onSubmit={handleSubmit(onSubmit)}
         className="border-2  border-black rounded-md flex flex-col justify-evenly gap-2 py-1 items-start w-1/2 px-2 bg-gray-300 "
       >
@@ -38,7 +48,7 @@ const YoutubeForm = () => {
           id="email"
           {...register("email" ,{
             pattern:{
-                value: /^[a-zA-Z0-9. _-]+@[a-zA-Z0-9. -]+\. [a-zA-Z]{2,4}$/ ,
+                value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
                 message:'Invalid Email format'
             }
           })}
