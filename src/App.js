@@ -15,49 +15,59 @@ import Profile from "./components/Profile";
 import AuthProvider from "./components/Auth";
 import Login from "./components/Login";
 import RequiredAuth from "./components/RequiredAuth";
+import Register from "./Form/Register";
+import YoutubeForm from "./Form/YoutubeForm";
 const LazyAbout = React.lazy(() => import("./components/About"));
 
 const App = () => {
-  return (
+  // return (
+  //   <>
+  //     <AuthProvider>
+  //       <Navbar />
+  //       <Routes>
+  //         {/* scripttv-ckt.png */}
+  //         <Route path="/" element={<Home />} />
+  //         <Route
+  //           path="about"
+  //           element={
+  //             <React.Suspense fallback="loading...">
+  //               <LazyAbout />
+  //             </React.Suspense>
+  //           }
+  //         />
+  //         <Route path="order-summary" element={<OrderSummary />} />
+  //         <Route path="*" element={<NoMatch />} />
+  //         <Route path="product" element={<Product />}>
+  //           <Route index element={<FeaturedProduct />} />
+  //           <Route path="feature" element={<FeaturedProduct />} />
+  //           <Route path="new" element={<NewProduct />} />
+  //         </Route>
+  //         <Route path="users" element={<Users />}>
+  //           <Route path=":userId" element={<Details />} />
+  //           <Route path="admin" element={<Admin />} />
+  //         </Route>
+  //         <Route
+  //           path="profile"
+  //           element={
+  //             <RequiredAuth>
+  //               <Profile />
+  //             </RequiredAuth>
+  //           }
+  //         />
+  //         <Route path="login" element={<Login />} />
+  //       </Routes>
+  //       {/* <Counter/> */}
+  //     </AuthProvider>
+  //   </>
+  // );
+ 
+  return(
     <>
-      <AuthProvider>
-        <Navbar />
-        <Routes>
-          {/* scripttv-ckt.png */}
-          <Route path="/" element={<Home />} />
-          <Route
-            path="about"
-            element={
-              <React.Suspense fallback="loading...">
-                <LazyAbout />
-              </React.Suspense>
-            }
-          />
-          <Route path="order-summary" element={<OrderSummary />} />
-          <Route path="*" element={<NoMatch />} />
-          <Route path="product" element={<Product />}>
-            <Route index element={<FeaturedProduct />} />
-            <Route path="feature" element={<FeaturedProduct />} />
-            <Route path="new" element={<NewProduct />} />
-          </Route>
-          <Route path="users" element={<Users />}>
-            <Route path=":userId" element={<Details />} />
-            <Route path="admin" element={<Admin />} />
-          </Route>
-          <Route
-            path="profile"
-            element={
-              <RequiredAuth>
-                <Profile />
-              </RequiredAuth>
-            }
-          />
-          <Route path="login" element={<Login />} />
-        </Routes>
-        {/* <Counter/> */}
-      </AuthProvider>
+    {/* <Register/> */}
+    <YoutubeForm/>
     </>
   );
+  
 };
 
 export default App;
