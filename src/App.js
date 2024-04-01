@@ -44,8 +44,15 @@ const App = () => {
             <Route path=":userId" element={<Details />} />
             <Route path="admin" element={<Admin />} />
           </Route>
-          <Route path="profile" element={<RequiredAuth><Profile /></RequiredAuth>} />
-          <Route path="login" element={<Login/>} />
+          <Route
+            path="profile"
+            element={
+              <RequiredAuth>
+                <Profile />
+              </RequiredAuth>
+            }
+          />
+          <Route path="login" element={<Login />} />
         </Routes>
         {/* <Counter/> */}
       </AuthProvider>

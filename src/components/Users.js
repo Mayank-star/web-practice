@@ -6,7 +6,7 @@ const Users = () => {
   const showingActiveUser = searchparams.get('filter')==='active'
 
   return (
-    <div className=" flex flex-col gap-3 w-1/6">
+    <div className=" flex flex-col gap-3 w-2/6">
       <ul>
         <li>User 1</li>
         <li>User 2</li>
