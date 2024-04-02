@@ -27,7 +27,7 @@ const YoutubeForm = () => {
       };
     },
   });
-  const { register, handleSubmit, control, formState,watch } = form;
+  const { register, handleSubmit, control, formState ,watch ,getValues } = form;
   const { errors } = formState;
 //   step-3
   const{fields,append,remove}=useFieldArray({
@@ -48,6 +48,12 @@ const YoutubeForm = () => {
       return ()=>subscription.unsubscribe()
     })
 
+    const handleGetValues = () =>{
+         console.log('Get values',getValues())
+         console.log('Get values',getValues('social'))
+         console.log('Get values',getValues(['email','age','date']))
+    }
+    
   return (
     <div className="flex justify-center items-center">
       {/* <h1>Form values :{JSON.stringify(watchform)}</h1> */}
@@ -220,6 +226,7 @@ const YoutubeForm = () => {
         <button className="border-2 border-black mb-3 px-2 py-1 rounded-xl bg-blue-200">
           Submit
         </button>
+        <button type="button" onClick={handleGetValues}>Get values</button>
         <DevTool control={control} />
       </form>
     </div>
