@@ -68,6 +68,11 @@ const YoutubeForm = () => {
       shouldTouch: true,
       shouldDirty: true,
     });
+    setValue("social.twitter", "", {
+      shouldValidate: true,
+      shouldTouch: true,
+      shouldDirty: true,
+    });
   };
   return (
     <div className="flex justify-center items-center">
@@ -134,6 +139,7 @@ const YoutubeForm = () => {
             name="twitter"
             id="twitter"
             {...register("social.twitter", {
+              disabled:watch('username')==='',
               required: "twitter id is required",
             })}
             className="border-2 border-black pl-1"
