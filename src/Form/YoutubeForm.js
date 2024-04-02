@@ -25,7 +25,7 @@ const YoutubeForm = () => {
         date: new Date(),
       };
     },
-    mode:'onBlur'
+    // mode:'onBlur'
   });
   const {
     register,
@@ -36,6 +36,7 @@ const YoutubeForm = () => {
     getValues,
     setValue,
     reset,
+    trigger
   } = form;
   const { errors, touchedFields, isDirty, dirtyFields, isValid  ,isSubmitting,isSubmitted,isSubmitSuccessful,submitCount } = formState;
   // console.log("istouchedfield ", touchedFields);
@@ -304,6 +305,12 @@ const YoutubeForm = () => {
           className="border-2 border-black mb-3 px-2 py-1 rounded-xl bg-blue-200"
         >
           Set values
+        </button>
+        <button
+           onClick={()=>trigger()}
+          className="border-2 border-black mb-3 px-2 py-1 rounded-xl bg-blue-200"
+        >
+          validate
         </button>
         <DevTool control={control} />
       </form>
