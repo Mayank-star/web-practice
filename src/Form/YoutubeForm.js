@@ -25,6 +25,7 @@ const YoutubeForm = () => {
         date: new Date(),
       };
     },
+    mode:'onBlur'
   });
   const {
     register,
