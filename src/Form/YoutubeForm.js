@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
 // step-1
@@ -39,16 +39,23 @@ const YoutubeForm = () => {
     console.log("Form is submitted", data);
   };
   
-    const watchform = watch()
+    // const watchform = watch()
+    // using watch callback -- This will not rerender element
+    useEffect(()=>{
+     const subscription= watch((value)=>{
+        console.log('value is',value)
+      })
+      return ()=>subscription.unsubscribe()
+    })
 
   return (
-    <div>
-      <h1>Form values :{JSON.stringify(watchform)}</h1>
+    <div className="flex justify-center items-center">
+      {/* <h1>Form values :{JSON.stringify(watchform)}</h1> */}
       
       <form
         noValidate
         onSubmit={handleSubmit(onSubmit)}
-        className="border-2  border-black rounded-md flex flex-col justify-evenly gap-2 py-4 items-start w-1/4 px-6 bg-gray-300 "
+        className="border-2  border-black rounded-md flex flex-col justify-evenly gap-2 py-4 items-start px-6 bg-gray-300 m-4"
       >
         <div className="flex flex-col justify-center items-start gap-2">
           <label htmlFor="username">Username:</label>
