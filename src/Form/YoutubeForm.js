@@ -15,12 +15,14 @@ const YoutubeForm = () => {
         email: data.email,
         channel: "knocknok",
         social: {
-          twitter: "",
-          facebook: "",
+          twitter: "red@123",
+          facebook: "techlead#657",
         },
-        phoneNumber: ["", ""],
+        phoneNumber: ["9845632178", "8541236548"],
         // step-2
-        phNumber:[{number:''}]
+        phNumber:[{number:''}],
+        age:0,
+        date:new Date()
 
       };
     },
@@ -42,9 +44,9 @@ const YoutubeForm = () => {
       <form
         noValidate
         onSubmit={handleSubmit(onSubmit)}
-        className="border-2  border-black rounded-md flex flex-col justify-evenly gap-2 py-1 items-start w-1/2 px-2 bg-gray-300 "
+        className="border-2  border-black rounded-md flex flex-col justify-evenly gap-2 py-4 items-start w-1/4 px-6 bg-gray-300 "
       >
-        <div>
+        <div className="flex flex-col justify-center items-start gap-2">
           <label htmlFor="username">Username:</label>
           <input
             type="text"
@@ -58,10 +60,10 @@ const YoutubeForm = () => {
             })}
             className="border-2 border-black pl-1"
           />
-          <p className="text-red-600">{errors.username?.message}</p>
+          <p className="text-red-600">{errors?.username?.message}</p>
         </div>
 
-        <div>
+        <div className="flex flex-col justify-center items-start gap-2">
           <label htmlFor="email">Email:</label>
           <input
             type="email"
@@ -71,15 +73,15 @@ const YoutubeForm = () => {
               pattern: {
                 value:
                   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                message: "Invalid Email format",
+                message: "Invalid Email Format",
               },
             })}
             className="border-2 border-black pl-1"
           />
-          <p className="text-red-600">{errors.email?.message}</p>
+          <p className="text-red-600">{errors?.email?.message}</p>
         </div>
 
-        <div>
+        <div className="flex flex-col justify-center items-start gap-2">
           <label htmlFor="channel">Channel:</label>
           <input
             type="text"
@@ -90,10 +92,10 @@ const YoutubeForm = () => {
             })}
             className="border-2 border-black pl-1"
           />
-          <p className="text-red-600">{errors.channel?.message}</p>
+          <p className="text-red-600">{errors?.channel?.message}</p>
         </div>
 
-        <div>
+        <div className="flex flex-col justify-center items-start gap-2">
           <label htmlFor="twitter">Twiiter Id:</label>
           <input
             type="text"
@@ -104,10 +106,10 @@ const YoutubeForm = () => {
             })}
             className="border-2 border-black pl-1"
           />
-          <p className="text-red-600">{errors.channel?.message}</p>
+          <p className="text-red-600">{errors?.social?.twitter?.message}</p>
         </div>
 
-        <div>
+        <div className="flex flex-col justify-center items-start gap-2">
           <label htmlFor="facebook">Facebook Id:</label>
           <input
             type="text"
@@ -118,49 +120,50 @@ const YoutubeForm = () => {
             })}
             className="border-2 border-black pl-1"
           />
-          <p className="text-red-600">{errors.channel?.message}</p>
+            <p className="text-red-600">{errors?.social?.facebook?.message}</p>
         </div>
 
-        <div>
+        <div className="flex flex-col justify-center items-start gap-2">
           <label htmlFor="primary">Primary Contact No:</label>
           <input
-            type="number"
+            type="text"
             id="primary"
             {...register("phoneNumber.0" ,{
                 pattern:{
-                    value:/^(\+\d{1,3}[- ]?)?\d{10}$/,
-                    message:"Invalid phone no.format",
+                    value:/^\d{10}$/,
+                    message:"Invalid phone no.",
                 }
             })}
             className="border-2 border-black pl-1"
           />
-          <p>{errors.primary?.message}</p>
+          <p className="text-red-600">{errors?.phoneNumber?.[0]?.message}</p>
+         
         </div>
-        <div>
+        <div className="flex flex-col justify-center items-start gap-2">
           <label htmlFor="secondary">Secondary Contact No:</label>
           <input
-            type="number"
+            type="text"
             id="secondary"
             {...register("phoneNumber.1",{
                 pattern:{
                     value:/^(\+\d{1,3}[- ]?)?\d{10}$/,
-                    message:"Invalid phone no.format",
+                    message:"Invalid phone no.",
                 }
             })}
             className="border-2 border-black pl-1"
           />
-          <p>{errors.secondary?.message}</p>
+          <p className="text-red-600">{errors?.phoneNumber?.[1]?.message}</p>
         </div>
 
-        <div>
+        <div className="flex flex-col justify-center items-start gap-2">
              {/* step-4 */}
-            <label htmlFor="phNumber">List of phone Numbers:</label><br/>
+            <label htmlFor="phNumber">List of phone Numbers:</label>
             <div>
                 {
                     fields.map((field,index)=>{
                         return(
                             <div key={field.id} >
-                            <input id='phNumber' type="number" {...register(`phNumber.${index}.number`)} className="border-2 border-black pl-1"/>{" "}
+                            <input id='phNumber' type="text" {...register(`phNumber.${index}.number`)} className="border-2 border-black pl-1"/>{" "}
                             {
                                 index>0 && <button type="button" onClick={()=>remove(index)}  className="border-2 border-red-400 mb-3 px-2 py-1 rounded-xl bg-blue-200">remove</button>
                             }
@@ -171,6 +174,37 @@ const YoutubeForm = () => {
             </div><br/>
             <button type="button" onClick={()=>append({number:''})}  className="border-2 border-green-950 mb-3 px-2 py-1 rounded-xl bg-blue-200">Add phone Number</button>
         </div>
+
+        <div className="flex flex-col justify-center items-start gap-2">
+          <label htmlFor="age">Age:</label>
+          <input
+            type="text"
+            name="age"
+            id="age"
+            {...register("age", {
+              valueAsNumber:true,
+              required: "Age is required",
+            })}
+            className="border-2 border-black pl-1"
+          />
+          <p className="text-red-600">{errors?.age?.message}</p>
+        </div>
+        
+        <div className="flex flex-col justify-center items-start gap-2">
+          <label htmlFor="date">Date:</label>
+          <input
+            type="date"
+            name="date"
+            id="channel"
+            {...register("date", {
+              valueAsDate:true,
+              required: "date is required",
+            })}
+            className="border-2 border-black pl-1"
+          />
+          <p className="text-red-600">{errors?.date?.message}</p>
+        </div>
+
 
         <button className="border-2 border-black mb-3 px-2 py-1 rounded-xl bg-blue-200">
           Submit
