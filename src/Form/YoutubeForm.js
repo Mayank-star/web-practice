@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
 // step-1
-import {useFieldArray} from 'react-hook-form'
+import { useFieldArray } from "react-hook-form";
 const YoutubeForm = () => {
   const form = useForm({
     defaultValues: async () => {
@@ -20,52 +20,59 @@ const YoutubeForm = () => {
         },
         phoneNumber: ["9845632178", "8541236548"],
         // step-2
-        phNumber:[{number:''}],
-        age:0,
-        date:new Date()
-
+        phNumber: [{ number: "" }],
+        age: 0,
+        date: new Date(),
       };
     },
   });
-  const { register, handleSubmit, control, formState ,watch ,getValues,setValue } = form;
-  const { errors } = formState;
-//   step-3
-  const{fields,append,remove}=useFieldArray({
-    name:'phNumber',
+  const {
+    register,
+    handleSubmit,
     control,
-
-  })
+    formState,
+    watch,
+    getValues,
+    setValue,
+  } = form;
+  const { errors,touchedFields,isDirty } = formState;
+  console.log('touchedfield ',touchedFields)
+  console.log("isDirty",isDirty);
+  //   step-3
+  const { fields, append, remove } = useFieldArray({
+    name: "phNumber",
+    control,
+  });
   const onSubmit = (data) => {
     console.log("Form is submitted", data);
   };
-  
-    // const watchform = watch()
-    // using watch callback -- This will not rerender element
-    useEffect(()=>{
-     const subscription= watch((value)=>{
-        console.log('value is',value)
-      })
-      return ()=>subscription.unsubscribe()
-    },[watch])
 
-    const handleGetValues = () =>{
-         console.log('Get values',getValues())
-         console.log('Get values',getValues('social'))
-         console.log('Get values',getValues(['email','age','date']))
-    }
-    
-    const handleSetValues = () =>{
-        setValue('username','',{
-          shouldValidate:true,
-          shouldTouch:true,
-          shouldDirty:true,
-        })
-        
-    }
+  // const watchform = watch()
+  // using watch callback -- This will not rerender element
+  useEffect(() => {
+    const subscription = watch((value) => {
+      console.log("value is", value);
+    });
+    return () => subscription.unsubscribe();
+  }, [watch]);
+
+  const handleGetValues = () => {
+    console.log("Get values", getValues());
+    console.log("Get values", getValues("social"));
+    console.log("Get values", getValues(["email", "age", "date"]));
+  };
+
+  const handleSetValues = () => {
+    setValue("username", "", {
+      shouldValidate: true,
+      shouldTouch: true,
+      shouldDirty: true,
+    });
+  };
   return (
     <div className="flex justify-center items-center">
       {/* <h1>Form values :{JSON.stringify(watchform)}</h1> */}
-      
+
       <form
         noValidate
         onSubmit={handleSubmit(onSubmit)}
@@ -145,7 +152,7 @@ const YoutubeForm = () => {
             })}
             className="border-2 border-black pl-1"
           />
-            <p className="text-red-600">{errors?.social?.facebook?.message}</p>
+          <p className="text-red-600">{errors?.social?.facebook?.message}</p>
         </div>
 
         <div className="flex flex-col justify-center items-start gap-2">
@@ -153,27 +160,26 @@ const YoutubeForm = () => {
           <input
             type="text"
             id="primary"
-            {...register("phoneNumber.0" ,{
-                pattern:{
-                    value:/^\d{10}$/,
-                    message:"Invalid phone no.",
-                }
+            {...register("phoneNumber.0", {
+              pattern: {
+                value: /^\d{10}$/,
+                message: "Invalid phone no.",
+              },
             })}
             className="border-2 border-black pl-1"
           />
           <p className="text-red-600">{errors?.phoneNumber?.[0]?.message}</p>
-         
         </div>
         <div className="flex flex-col justify-center items-start gap-2">
           <label htmlFor="secondary">Secondary Contact No:</label>
           <input
             type="text"
             id="secondary"
-            {...register("phoneNumber.1",{
-                pattern:{
-                    value:/^(\+\d{1,3}[- ]?)?\d{10}$/,
-                    message:"Invalid phone no.",
-                }
+            {...register("phoneNumber.1", {
+              pattern: {
+                value: /^(\+\d{1,3}[- ]?)?\d{10}$/,
+                message: "Invalid phone no.",
+              },
             })}
             className="border-2 border-black pl-1"
           />
@@ -181,23 +187,39 @@ const YoutubeForm = () => {
         </div>
 
         <div className="flex flex-col justify-center items-start gap-2">
-             {/* step-4 */}
-            <label htmlFor="phNumber">List of phone Numbers:</label>
-            <div>
-                {
-                    fields.map((field,index)=>{
-                        return(
-                            <div key={field.id} >
-                            <input id='phNumber' type="text" {...register(`phNumber.${index}.number`)} className="border-2 border-black pl-1"/>{" "}
-                            {
-                                index>0 && <button type="button" onClick={()=>remove(index)}  className="border-2 border-red-400 mb-3 px-2 py-1 rounded-xl bg-blue-200">remove</button>
-                            }
-                            </div>
-                        )
-                    })
-                }
-            </div><br/>
-            <button type="button" onClick={()=>append({number:''})}  className="border-2 border-green-950 mb-3 px-2 py-1 rounded-xl bg-blue-200">Add phone Number</button>
+          {/* step-4 */}
+          <label htmlFor="phNumber">List of phone Numbers:</label>
+          <div>
+            {fields.map((field, index) => {
+              return (
+                <div key={field.id}>
+                  <input
+                    id="phNumber"
+                    type="text"
+                    {...register(`phNumber.${index}.number`)}
+                    className="border-2 border-black pl-1"
+                  />{" "}
+                  {index > 0 && (
+                    <button
+                      type="button"
+                      onClick={() => remove(index)}
+                      className="border-2 border-red-400 mb-3 px-2 py-1 rounded-xl bg-blue-200"
+                    >
+                      remove
+                    </button>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+          <br />
+          <button
+            type="button"
+            onClick={() => append({ number: "" })}
+            className="border-2 border-green-950 mb-3 px-2 py-1 rounded-xl bg-blue-200"
+          >
+            Add phone Number
+          </button>
         </div>
 
         <div className="flex flex-col justify-center items-start gap-2">
@@ -207,14 +229,14 @@ const YoutubeForm = () => {
             name="age"
             id="age"
             {...register("age", {
-              valueAsNumber:true,
+              valueAsNumber: true,
               required: "Age is required",
             })}
             className="border-2 border-black pl-1"
           />
           <p className="text-red-600">{errors?.age?.message}</p>
         </div>
-        
+
         <div className="flex flex-col justify-center items-start gap-2">
           <label htmlFor="date">Date:</label>
           <input
@@ -222,7 +244,7 @@ const YoutubeForm = () => {
             name="date"
             id="channel"
             {...register("date", {
-              valueAsDate:true,
+              valueAsDate: true,
               required: "date is required",
             })}
             className="border-2 border-black pl-1"
@@ -230,12 +252,23 @@ const YoutubeForm = () => {
           <p className="text-red-600">{errors?.date?.message}</p>
         </div>
 
-
         <button className="border-2 border-black mb-3 px-2 py-1 rounded-xl bg-blue-200">
           Submit
         </button>
-        <button type="button" onClick={handleGetValues} className="border-2 border-black mb-3 px-2 py-1 rounded-xl bg-blue-200">Get values</button>
-        <button type="button" onClick={handleSetValues} className="border-2 border-black mb-3 px-2 py-1 rounded-xl bg-blue-200">Set values</button>
+        <button
+          type="button"
+          onClick={handleGetValues}
+          className="border-2 border-black mb-3 px-2 py-1 rounded-xl bg-blue-200"
+        >
+          Get values
+        </button>
+        <button
+          type="button"
+          onClick={handleSetValues}
+          className="border-2 border-black mb-3 px-2 py-1 rounded-xl bg-blue-200"
+        >
+          Set values
+        </button>
         <DevTool control={control} />
       </form>
     </div>
