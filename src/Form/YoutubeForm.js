@@ -35,9 +35,10 @@ const YoutubeForm = () => {
     getValues,
     setValue,
   } = form;
-  const { errors,touchedFields,isDirty } = formState;
-  console.log('touchedfield ',touchedFields)
+  const { errors,touchedFields,isDirty ,dirtyFields,isValid} = formState;
+  console.log('istouchedfield ',touchedFields)
   console.log("isDirty",isDirty);
+  console.log('isdirtyfield',dirtyFields)
   //   step-3
   const { fields, append, remove } = useFieldArray({
     name: "phNumber",
@@ -261,7 +262,7 @@ const YoutubeForm = () => {
           <p className="text-red-600">{errors?.date?.message}</p>
         </div>
 
-        <button className="border-2 border-black mb-3 px-2 py-1 rounded-xl bg-blue-200">
+        <button disabled={!isDirty || !isValid } className="border-2 border-black mb-3 px-2 py-1 rounded-xl bg-blue-200">
           Submit
         </button>
         <button
