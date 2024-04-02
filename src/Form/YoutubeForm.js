@@ -27,7 +27,7 @@ const YoutubeForm = () => {
       };
     },
   });
-  const { register, handleSubmit, control, formState ,watch ,getValues } = form;
+  const { register, handleSubmit, control, formState ,watch ,getValues,setValue } = form;
   const { errors } = formState;
 //   step-3
   const{fields,append,remove}=useFieldArray({
@@ -46,7 +46,7 @@ const YoutubeForm = () => {
         console.log('value is',value)
       })
       return ()=>subscription.unsubscribe()
-    })
+    },[watch])
 
     const handleGetValues = () =>{
          console.log('Get values',getValues())
@@ -54,6 +54,14 @@ const YoutubeForm = () => {
          console.log('Get values',getValues(['email','age','date']))
     }
     
+    const handleSetValues = () =>{
+        setValue('username','',{
+          shouldValidate:true,
+          shouldTouch:true,
+          shouldDirty:true,
+        })
+        
+    }
   return (
     <div className="flex justify-center items-center">
       {/* <h1>Form values :{JSON.stringify(watchform)}</h1> */}
@@ -226,7 +234,8 @@ const YoutubeForm = () => {
         <button className="border-2 border-black mb-3 px-2 py-1 rounded-xl bg-blue-200">
           Submit
         </button>
-        <button type="button" onClick={handleGetValues}>Get values</button>
+        <button type="button" onClick={handleGetValues} className="border-2 border-black mb-3 px-2 py-1 rounded-xl bg-blue-200">Get values</button>
+        <button type="button" onClick={handleSetValues} className="border-2 border-black mb-3 px-2 py-1 rounded-xl bg-blue-200">Set values</button>
         <DevTool control={control} />
       </form>
     </div>
