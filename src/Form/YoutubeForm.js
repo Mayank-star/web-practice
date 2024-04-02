@@ -124,6 +124,14 @@ const YoutubeForm = () => {
                   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
                 message: "Invalid Email Format",
               },
+              validate:{
+                emailValidate : async (fieldValue)=>{
+                  const response = await fetch(`https://jsonplaceholder.typicode.com/users?email=${fieldValue}`)
+                  const data = await response.json()
+                  return data.length==0 || "Email already exist"
+               }
+              }
+              
             })}
             className="border-2 border-black pl-1"
           />
@@ -271,7 +279,7 @@ const YoutubeForm = () => {
         </div>
 
         <button
-          disabled={!isDirty || !isValid}
+          disabled={!isDirty}
           className="border-2 border-black mb-3 px-2 py-1 rounded-xl bg-blue-200"
         >
           Submit
