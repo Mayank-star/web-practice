@@ -35,10 +35,11 @@ const YoutubeForm = () => {
     getValues,
     setValue,
   } = form;
-  const { errors,touchedFields,isDirty ,dirtyFields,isValid} = formState;
-  console.log('istouchedfield ',touchedFields)
-  console.log("isDirty",isDirty);
-  console.log('isdirtyfield',dirtyFields)
+  const { errors, touchedFields, isDirty, dirtyFields, isValid  ,isSubmitting,isSubmitted,isSubmitSuccessful,submitCount } = formState;
+  // console.log("istouchedfield ", touchedFields);
+  // console.log("isDirty", isDirty);
+  // console.log("isdirtyfield", dirtyFields);
+  console.log({isSubmitting,isSubmitted,isSubmitSuccessful,submitCount });
   //   step-3
   const { fields, append, remove } = useFieldArray({
     name: "phNumber",
@@ -47,23 +48,23 @@ const YoutubeForm = () => {
   const onSubmit = (data) => {
     console.log("Form is submitted", data);
   };
-  const onError =(error)=>{
-    console.log('error is',error)
-  }
+  const onError = (error) => {
+    // console.log("error is", error);
+  };
 
   // const watchform = watch()
   // using watch callback -- This will not rerender element
   useEffect(() => {
     const subscription = watch((value) => {
-      console.log("value is", value);
+      // console.log("value is", value);
     });
     return () => subscription.unsubscribe();
   }, [watch]);
 
   const handleGetValues = () => {
-    console.log("Get values", getValues());
-    console.log("Get values", getValues("social"));
-    console.log("Get values", getValues(["email", "age", "date"]));
+    // console.log("Get values", getValues());
+    // console.log("Get values", getValues("social"));
+    // console.log("Get values", getValues(["email", "age", "date"]));
   };
 
   const handleSetValues = () => {
@@ -84,7 +85,7 @@ const YoutubeForm = () => {
 
       <form
         noValidate
-        onSubmit={handleSubmit(onSubmit,onError)}
+        onSubmit={handleSubmit(onSubmit, onError)}
         className="border-2  border-black rounded-md flex flex-col justify-evenly gap-2 py-4 items-start px-6 bg-gray-300 m-4"
       >
         <div className="flex flex-col justify-center items-start gap-2">
@@ -143,7 +144,7 @@ const YoutubeForm = () => {
             name="twitter"
             id="twitter"
             {...register("social.twitter", {
-              disabled:watch('username')==='',
+              disabled: watch("username") === "",
               required: "twitter id is required",
             })}
             className="border-2 border-black pl-1"
@@ -262,7 +263,10 @@ const YoutubeForm = () => {
           <p className="text-red-600">{errors?.date?.message}</p>
         </div>
 
-        <button disabled={!isDirty || !isValid } className="border-2 border-black mb-3 px-2 py-1 rounded-xl bg-blue-200">
+        <button
+          disabled={!isDirty || !isValid}
+          className="border-2 border-black mb-3 px-2 py-1 rounded-xl bg-blue-200"
+        >
           Submit
         </button>
         <button
