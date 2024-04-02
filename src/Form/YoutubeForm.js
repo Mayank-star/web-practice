@@ -34,6 +34,7 @@ const YoutubeForm = () => {
     watch,
     getValues,
     setValue,
+    reset,
   } = form;
   const { errors, touchedFields, isDirty, dirtyFields, isValid  ,isSubmitting,isSubmitted,isSubmitSuccessful,submitCount } = formState;
   // console.log("istouchedfield ", touchedFields);
@@ -60,6 +61,12 @@ const YoutubeForm = () => {
     });
     return () => subscription.unsubscribe();
   }, [watch]);
+
+  useEffect(()=>{
+    if(isSubmitSuccessful){
+      reset()
+    }
+  },[isSubmitSuccessful,reset])
 
   const handleGetValues = () => {
     // console.log("Get values", getValues());
@@ -268,6 +275,12 @@ const YoutubeForm = () => {
           className="border-2 border-black mb-3 px-2 py-1 rounded-xl bg-blue-200"
         >
           Submit
+        </button>
+        <button
+           onClick={()=>reset()}
+          className="border-2 border-black mb-3 px-2 py-1 rounded-xl bg-blue-200"
+        >
+          reset
         </button>
         <button
           type="button"
