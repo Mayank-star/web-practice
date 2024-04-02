@@ -46,6 +46,9 @@ const YoutubeForm = () => {
   const onSubmit = (data) => {
     console.log("Form is submitted", data);
   };
+  const onError =(error)=>{
+    console.log('error is',error)
+  }
 
   // const watchform = watch()
   // using watch callback -- This will not rerender element
@@ -80,7 +83,7 @@ const YoutubeForm = () => {
 
       <form
         noValidate
-        onSubmit={handleSubmit(onSubmit)}
+        onSubmit={handleSubmit(onSubmit,onError)}
         className="border-2  border-black rounded-md flex flex-col justify-evenly gap-2 py-4 items-start px-6 bg-gray-300 m-4"
       >
         <div className="flex flex-col justify-center items-start gap-2">
