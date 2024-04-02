@@ -27,7 +27,7 @@ const YoutubeForm = () => {
       };
     },
   });
-  const { register, handleSubmit, control, formState } = form;
+  const { register, handleSubmit, control, formState,watch } = form;
   const { errors } = formState;
 //   step-3
   const{fields,append,remove}=useFieldArray({
@@ -38,9 +38,13 @@ const YoutubeForm = () => {
   const onSubmit = (data) => {
     console.log("Form is submitted", data);
   };
+  
+    const watchform = watch()
 
   return (
     <div>
+      <h1>Form values :{JSON.stringify(watchform)}</h1>
+      
       <form
         noValidate
         onSubmit={handleSubmit(onSubmit)}
